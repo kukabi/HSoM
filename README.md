@@ -102,4 +102,10 @@ _Tested on Catalina 10.15.5._
 
     7. You can edit the application code at `app/Main.hs` and run the application by running `stack run` in the project folder.
 
-9. 🎉 **_VOILA_** 🎉 You have completed the environment setup, and now you can use Euterpea in your Haskell programs, build and run them. You may proceed with the example solutions for different chapters.
+9. 🎉 **_VOILA_** 🎉 You have completed the environment setup, and now you can use Euterpea in your Haskell programs and run them in three different ways:
+
+    1. Through the command line interface `ghci`.
+
+    2. By compiling your Haskell file with `ghc`.
+
+    3. By using `stack` to create a new Haskell project.
