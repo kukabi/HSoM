@@ -78,3 +78,5 @@ it :: [[Char]]
 ```
 
 **Exercise 1.4** Modify the definitions of `hnote` and `hList` so that they each take an extra argument that specifies the interval of harmonization (rather than being fixed at -3). Rewrite the definition of `mel`to take these changes into account.
+
+Solution is in [app/Main.hs](./app/Main.hs). You can run it with `stack run` in this folder.

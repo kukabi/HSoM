@@ -4,13 +4,13 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ba832201dc763018ee572e220987728b3c4ff70f1f62ccabf3bb6e9096097055
+-- hash: 4c22f5cc5a6219732206260e7aa2ae67d788262d3aa66eff46806eda4bdb82ba
 
-name:           euterpea-stack-test
+name:           chapter-01e
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/euterpea-stack-test#readme>
-homepage:       https://github.com/githubuser/euterpea-stack-test#readme
-bug-reports:    https://github.com/githubuser/euterpea-stack-test/issues
+description:    Please see the README on GitHub at <https://github.com/githubuser/chapter-01e#readme>
+homepage:       https://github.com/githubuser/chapter-01e#readme
+bug-reports:    https://github.com/githubuser/chapter-01e/issues
 author:         Author name here
 maintainer:     example@example.com
 copyright:      2020 Author name here
@@ -23,13 +23,13 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/euterpea-stack-test
+  location: https://github.com/githubuser/chapter-01e
 
 library
   exposed-modules:
       Lib
   other-modules:
-      Paths_euterpea_stack_test
+      Paths_chapter_01e
   hs-source-dirs:
       src
   build-depends:
@@ -37,29 +37,29 @@ library
     , base >=4.7 && <5
   default-language: Haskell2010
 
-executable euterpea-stack-test-exe
+executable chapter-01e-exe
   main-is: Main.hs
   other-modules:
-      Paths_euterpea_stack_test
+      Paths_chapter_01e
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Euterpea
     , base >=4.7 && <5
-    , euterpea-stack-test
+    , chapter-01e
   default-language: Haskell2010
 
-test-suite euterpea-stack-test-test
+test-suite chapter-01e-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_euterpea_stack_test
+      Paths_chapter_01e
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Euterpea
     , base >=4.7 && <5
-    , euterpea-stack-test
+    , chapter-01e
   default-language: Haskell2010

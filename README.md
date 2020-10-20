@@ -6,7 +6,9 @@
 
 I have purchased this book recently. It's a really challenging, fun and rewarding read and it's exciting to learn Haskell and Euterpea, yet I had some trouble setting up the environment and wrapping my head around some of the examples. This repo is a log of my activity around the book.
 
-First thing I have to mention is that even after you manage to setup the environment correctly and `import Euterpea` in your Haskell program, the `play $ c 4 qn` example in the [Euterpea website](http://euterpea.com/) will **not** synthesize sound or play a sample, but it will send a MIDI signal to your computer's default MIDI output. So be prepared to do some basic MIDI setup to get some sound out of it.
+First thing to note is that even after you manage to setup the environment correctly and `import Euterpea` in your Haskell program, the `play $ c 4 qn` example in the [Euterpea website](http://euterpea.com/) will **not** synthesize sound or play a sample, but it will send a MIDI signal to your computer's default MIDI output. So be prepared to do some basic MIDI setup to get some sound out of it.
+
+You can find environment setup info below, and the exercise solutions and chapter notes in the corresponding folders.
 
 ## Environment Setup on Mac OS X
 
@@ -65,7 +67,7 @@ _Tested on Catalina 10.15.5._
 
 8. **OPTIONAL** You can also use [stack](https://docs.haskellstack.org/en/stable/README/), a tool to create, build, test and run Haskell projects. It also manages the dependency packages. I personally like it and find it easy to build and run my projects with it. You can install it following the directions in the `stack` [README file](https://docs.haskellstack.org/en/stable/README/).
 
-    1. Create a new project with the command `stack new euterpea-stack-test`. You can find the example project in the root folder of this repository.
+    1. Create a new project with the command `stack new euterpea-stack-example`. You can find the example project in the root folder of this repository.
 
     2. Edit `package.yaml` in the project directory and add Euterpea as a dependency:
 
@@ -102,10 +104,10 @@ _Tested on Catalina 10.15.5._
 
     7. You can edit the application code at `app/Main.hs` and run the application by running `stack run` in the project folder.
 
-9. 🎉 **_VOILA_** 🎉 You have completed the environment setup, and now you can use Euterpea in your Haskell programs and run them in three different ways:
+9. 🎉 Done. You have completed the environment setup, and now you can use Euterpea in your Haskell programs and run them in three different ways:
 
     1. Through the command line interface `ghci`.
 
     2. By compiling your Haskell file with `ghc`.
 
-    3. By using `stack` to create a new Haskell project.
+    3. By using `stack` to create, configure, build and run a new Haskell project.
