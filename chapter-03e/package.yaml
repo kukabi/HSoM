@@ -1,4 +1,4 @@
-name: chapter-02e
+name: chapter-03e
 version: 0.1.0.0
 github: "kukabi/HSoM"
 license: BSD3
@@ -17,7 +17,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description: Please see the README on GitHub at <https://github.com/githubuser/chapter-02e#readme>
+description: Please see the README on GitHub at <https://github.com/githubuser/chapter-03e#readme>
 
 dependencies:
     - base >= 4.7 && < 5
@@ -27,7 +27,7 @@ library:
     source-dirs: src
 
 executables:
-    chapter-02e-exe:
+    chapter-03e-exe:
         main: Main.hs
         source-dirs: app
         ghc-options:
@@ -35,10 +35,10 @@ executables:
             - -rtsopts
             - -with-rtsopts=-N
         dependencies:
-            - chapter-02e
+            - chapter-03e
 
 tests:
-    chapter-02e-test:
+    chapter-03e-test:
         main: Spec.hs
         source-dirs: test
         ghc-options:
@@ -46,4 +46,4 @@ tests:
             - -rtsopts
             - -with-rtsopts=-N
         dependencies:
-            - chapter-02e
+            - chapter-03e

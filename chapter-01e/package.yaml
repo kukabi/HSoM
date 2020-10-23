@@ -1,10 +1,10 @@
 name: chapter-01e
 version: 0.1.0.0
-github: "githubuser/chapter-01e"
+github: "kukabi/HSoM"
 license: BSD3
-author: "Author name here"
-maintainer: "example@example.com"
-copyright: "2020 Author name here"
+author: "Kutsal Kaan Bilgin"
+maintainer: "kutsal@helikon.media"
+copyright: "2020 Kutsal Kaan Bilgin"
 
 extra-source-files:
     - README.md
