@@ -1,8 +1,8 @@
 ### Chapter 02: Simple Music
 
-**Exercise 2.1** The above example is fairly concrete, in that, for one, it is rooted in C major, and furthermore it has a fixed tempo. Define a function _twoFiveOne :: Pitch -> Dur -> Music Pitch_ such that _twoFiveOne p d_ constructs a ii-V-I chord progression in the key whose major scale begins on the pitch _p_ (i.e., the first degree of the major scale on which the progression is being constructed), where the duration of each of the first two chords is d, and the duration of the last chord is 2 \* _d_. To verify your code, prove by calculation that _twoFiveOne (C,4) wn = t251_.
+Solution, application and examples are in [app/Main.hs](./app/Main.hs). You can run it with `stack run` in this folder.
 
-Solution is in [app/Main.hs](./app/Main.hs). You can run it with `stack run` in this folder.
+**Exercise 2.1** The above example is fairly concrete, in that, for one, it is rooted in C major, and furthermore it has a fixed tempo. Define a function _twoFiveOne :: Pitch -> Dur -> Music Pitch_ such that _twoFiveOne p d_ constructs a ii-V-I chord progression in the key whose major scale begins on the pitch _p_ (i.e., the first degree of the major scale on which the progression is being constructed), where the duration of each of the first two chords is d, and the duration of the last chord is 2 \* _d_. To verify your code, prove by calculation that _twoFiveOne (C,4) wn = t251_.
 
 ```haskell
 twoFiveOne :: Pitch -> Dur -> Music Pitch
