@@ -63,6 +63,27 @@ transposedMelody = pitchesToLine qn (f1 2 melodyPitches)
 melodyWithRests :: Music Pitch
 melodyWithRests = musicsToLine (f3 melodyMusics)
 
+{-
+Exercise 3.4 Define a function applyEach that, given a list of functions,
+applies each to some given value.
+-}
+applyEach :: [a -> b] -> a -> [b]
+applyEach [] _ = []
+applyEach (f:fs) x = f x : (applyEach fs x)
+
+{-
+Exercise 3.5 Define a function applyAll that, given a list of
+functions [f1, f2, ... , fn] and a value v, 
+eturns the result f1(f2( ... (fn v))).
+-}
+applyAll :: [a -> a] -> a -> a
+applyAll fs x = let apply f y = f y
+                in foldr apply x fs
+
+simple x y z = x * (y + z)
+applyEachResult = applyEach [simple 2 2, (+3)] 5
+applyAllResult = applyAll [simple 2 2, (+3)] 5
+
 main = do
     print "Playing plain melody ..."
     play melody
@@ -70,3 +91,7 @@ main = do
     play transposedMelody
     print "Playing melody with rests ..."
     play melodyWithRests
+    print "applyEach [simple 2 2, (+3)] 5 is:"
+    print applyEachResult
+    print "applyAll [simple 2 2, (+3)] 5 is:"
+    print applyAllResult
