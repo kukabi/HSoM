@@ -63,7 +63,7 @@ applyEach [] _ = []
 applyEach (f:fs) x = f x : (applyEach fs x)
 ```
 
-**Exercise 3.4** Define a function _applyAll_ that, given a list of functions [_f1_, _f2_, ... , _fn_] and a value _v_, returns the result _f1_(_f2_(...(_fn v_))). For example:
+**Exercise 3.5** Define a function _applyAll_ that, given a list of functions [_f1_, _f2_, ... , _fn_] and a value _v_, returns the result _f1_(_f2_(...(_fn v_))). For example:
 
 _applyAll_ [_simple_ 2 2, (+3)] 5 => 20
 
@@ -72,3 +72,37 @@ applyAll :: [a -> a] -> a -> a
 applyAll fs x = let apply f y = f y
                 in foldr apply x fs
 ```
+
+**Exercise 3.6** Recall the discussion about the efficiency of (++) and _concat_ in Chapter 3. Which of the following functions is more efficient, and why?
+
+_appendr, appendl_ :: \[\[_a_\]\] -> \[_a_\]\
+_appendr_ = _foldr_ (_flip_ (++)) []
+_appendl_ = _foldl_ (_flip_ (++)) []
+
+_appendl_ becomes the same as concat, and _appendr_ same as slowConcat as shown below.
+
+```
+appendl = foldl (flip (++)) []
+appendl [xs1, xs2, ..., xsn]
+=> foldl (flip (++)) [] [xs1, xs2, ..., xsn]
+=> (...(([] (flip (++)) xs1) (flip (++)) xs2)...) (flip (++)) xsn
+=> xsn ++ (...(xs2 ++ (xs1 ++ []))...)
+
+appendr = foldr (flip (++)) []
+appendr [xs1, xs2, ..., xsn]
+=> foldr (flip (++)) [] [xs1, xs2, ..., xsn]
+=> xs1 (flip (++)) (xs2 (flip (++)) (...(xsn (flip (++)) []))...)
+=> (...([] ++ xsn)...) ++ xs2) ++ xs1
+```
+
+Cost of _appendl_ is the sum of the lengths of the lists:
+
+_cost<sub>appendl</sub>_ = _ℓ<sub>1</sub>_ + _ℓ<sub>2</sub>_ + ... + _ℓ<sub>n - 1</sub>_
+
+Cost of _appendr_ is considerable worse than _appendl_:
+
+_cost<sub>appendr</sub>_ = _(n - 1) \* ℓ<sub>1</sub>_ + _(n - 2) \* ℓ<sub>2</sub>_ + ... + _2 \* ℓ<sub>n - 2</sub> + ℓ<sub>n - 1</sub>_
+
+_appendl_ is the more efficient one.
+
+**Exercise 3.7** Rewrite the definition of _length_ non-recursively.
