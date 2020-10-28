@@ -74,7 +74,7 @@ applyEach (f:fs) x = f x : (applyEach fs x)
 {-
 Exercise 3.5 Define a function applyAll that, given a list of
 functions [f1, f2, ... , fn] and a value v, 
-eturns the result f1(f2( ... (fn v))).
+returns the result f1(f2( ... (fn v))).
 -}
 applyAll :: [a -> a] -> a -> a
 applyAll fs x = let apply f y = f y
@@ -83,6 +83,28 @@ applyAll fs x = let apply f y = f y
 simple x y z = x * (y + z)
 applyEachResult = applyEach [simple 2 2, (+3)] 5
 applyAllResult = applyAll [simple 2 2, (+3)] 5
+
+{-
+Exercise 3.7 Rewrite the definition of _length_ non-recursively.
+-}
+lengthNonRecursive :: [a] -> Int
+lengthNonRecursive xs = let f x = 1
+                        in foldr (+) 0 (map f xs)
+
+{-
+Exercise 3.8.a Define a function that:
+-}
+-- doubles each number in a list.
+doubleEach = map (*2)
+-- pairs each element in a list with that number and one plus that number.
+pairAndOne = let f x = (x, x + 1)
+             in map f
+-- adds together each pair of numbers in a list.
+addEachPair = let f (x, y) = x + y
+              in map f
+-- adds "pointwise" the elements of a list of pairs.
+addPairsPointwise = let f (a, b) (c, d) = (a + c, b + d)
+                    in foldr f (0, 0)
 
 main = do
     print "Playing plain melody ..."
@@ -95,3 +117,13 @@ main = do
     print applyEachResult
     print "applyAll [simple 2 2, (+3)] 5 is:"
     print applyAllResult
+    print "Length of [1, 2, 3, 4, 5, 6] is:"
+    print (lengthNonRecursive [1, 2, 3, 4, 5, 6])
+    print "doubleEach [1, 2, 3] is:"
+    print (doubleEach [1, 2, 3])
+    print "pairAndOne [1, 2, 3] is:"
+    print (pairAndOne [1, 2, 3])
+    print "addEachPair [(1, 2), (3, 4), (5, 6)] is:"
+    print (addEachPair [(1, 2), (3, 4), (5, 6)])
+    print "addPairsPointwise [(1, 2), (3, 4), (5, 6)] is:"
+    print (addPairsPointwise [(1, 2), (3, 4), (5, 6)])

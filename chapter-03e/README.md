@@ -106,3 +106,38 @@ _cost<sub>appendr</sub>_ = _(n - 1) \* ℓ<sub>1</sub>_ + _(n - 2) \* ℓ<sub>2<
 _appendl_ is the more efficient one.
 
 **Exercise 3.7** Rewrite the definition of _length_ non-recursively.
+
+```haskell
+length :: [a] -> Int
+length [] = 0
+length (x:xs) = 1 + length xs
+```
+
+**Exercise 3.8** Define a function that behaces as each of the following:
+
+1. Doubles each number in a list.
+
+    ```haskell
+    doubleEach = map (*2)
+    ```
+
+2. Pairs each element in a list with that number and one plus that number.
+
+    ```haskell
+    pairAndOne = let f x = (x, x + 1)
+                 in map f
+    ```
+
+3. Adds together each pair of numbers in a list.
+
+    ```haskell
+    addEachPair = let f (x, y) = x + y
+                  in map f
+    ```
+
+4. Adds "pointwise" the elements of a list of pairs.
+
+    ```haskell
+    addPairsPointwise = let f (a, b) (c, d) = (a + c, b + d)
+                        in foldr f (0, 0)
+    ```
