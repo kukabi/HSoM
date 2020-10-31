@@ -92,7 +92,7 @@ lengthNonRecursive xs = let f x = 1
                         in foldr (+) 0 (map f xs)
 
 {-
-Exercise 3.8.a Define a function that:
+Exercise 3.8 Define a function that:
 -}
 -- doubles each number in a list.
 doubleEach = map (*2)
@@ -103,8 +103,38 @@ pairAndOne = let f x = (x, x + 1)
 addEachPair = let f (x, y) = x + y
               in map f
 -- adds "pointwise" the elements of a list of pairs.
+addPairsPointwise :: [(Int, Int)] -> (Int, Int)
 addPairsPointwise = let f (a, b) (c, d) = (a + c, b + d)
                     in foldr f (0, 0)
+
+{-
+Exercise 3.9 efine a polymorphic function
+fuse :: [Dur] -> [Dur -> Music a] -> [Music a]
+that combines a list of durations with a list of notes
+lacking a duration, to create a list of complete notes.
+-}
+fuse :: [Dur] -> [Dur -> Music a] -> [Music a]
+fuse (d:ds) (n:ns) = n d : (fuse ds ns)
+fuse [] [] = []
+fuse [] (f:fs) = error "Unequal lengths -- note array is longer."
+fuse (d:ds) [] = error "Unequal lengths -- duration array is longer."
+zippedMelody = line (fuse [qn, hn, sn] [c 4, d 4, e 4])
+
+maxAbsPitch :: [AbsPitch] -> AbsPitch
+maxAbsPitch = foldr1 max
+
+maxAbsPitchR :: [AbsPitch] -> AbsPitch
+maxAbsPitchR [] = error "Empty array for maxAbsPitchR!"
+maxAbsPitchR [ap] = ap
+maxAbsPitchR (ap:aps) = if ap > maxAbsPitchR aps then ap else maxAbsPitchR aps
+
+chromR :: Pitch -> Pitch -> Music Pitch
+chromR p1 p2 = if absPitch p1 == absPitch p2
+               then note qn p1
+               else note qn p1 :+:
+               if absPitch p1 < absPitch p2
+               then chromR (trans 1 p1) p2
+               else chromR (trans (-1) p1) p2
 
 main = do
     print "Playing plain melody ..."
@@ -127,3 +157,11 @@ main = do
     print (addEachPair [(1, 2), (3, 4), (5, 6)])
     print "addPairsPointwise [(1, 2), (3, 4), (5, 6)] is:"
     print (addPairsPointwise [(1, 2), (3, 4), (5, 6)])
+    print "Playing Exercise 3.9 ..."
+    play zippedMelody
+    print "Max of [3, 13, 2, 127, 17] is:"
+    print (maxAbsPitch [3, 13, 2, 127, 17])
+    print "[Recursive] Max of [27, 3, 211, 1, 33, 122] is:"
+    print (maxAbsPitch [27, 3, 211, 1, 33, 122])
+    print "[Recursive] Playing a chromatic line of quarter notes from C4 down to G3 ..."
+    play (chromR (C, 4) (G, 3))

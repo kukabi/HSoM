@@ -141,3 +141,42 @@ length (x:xs) = 1 + length xs
     addPairsPointwise = let f (a, b) (c, d) = (a + c, b + d)
                         in foldr f (0, 0)
     ```
+
+**Exercise 3.9** Define a polymorphic function _fuse :: [Dur] -> [Dur -> Music a] -> [Music a]_ that combines a list of durations with a list of notes lacking a duration, to create a list of complete notes. For example:
+
+_fuse [qn, hn, sn] [c 4, d 4, e 4]_\
+=> _[c 4 qn, d 4 hn, e 4 sn]_
+
+You may signal an error if the lists have unequal lengths.
+
+```haskell
+fuse :: [Dur] -> [Dur -> Music a] -> [Music a]
+fuse (d:ds) (n:ns) = n d : (fuse ds ns)
+fuse [] [] = []
+fuse [] (f:fs) = error "Unequal lengths -- note array is longer."
+fuse (d:ds) [] = error "Unequal lengths -- duration array is longer."
+```
+
+**Exercise 3.10** Define a function _maxAbsPitch_ that determines the maximum absolute pitch of a list of absolute pitches. Define _minAbsPitch_ analogously. Both functions should return an error if applied to the empty list.
+
+```haskell
+maxAbsPitch :: [AbsPitch] -> AbsPitch
+maxAbsPitch = foldr1 max
+
+maxAbsPitchR :: [AbsPitch] -> AbsPitch
+maxAbsPitchR [] = error "Empty array for maxAbsPitchR!"
+maxAbsPitchR [ap] = ap
+maxAbsPitchR (ap:aps) = if ap > maxAbsPitchR aps then ap else maxAbsPitchR aps
+```
+
+**Exercise 3.11** Define a function _chrom :: Pitch → Pitch → Music Pitch_ such that _chrom p1 p2_ is a chromatic scale of quarter-notes whose first pitch is _p1_ and last pitch is _p2_. If _p1_ > _p2_, the scale should be descending, otherwise it should be ascending. If _p1_ == _p2_, then the scale should contain just one note. (A chromatic scale is one whose successive pitches are separated by one absolute pitch (i.e. one semitone)).
+
+```haskell
+chromR :: Pitch -> Pitch -> Music Pitch
+chromR p1 p2 = if absPitch p1 == absPitch p2
+               then note qn p1
+               else note qn p1 :+:
+               if absPitch p1 < absPitch p2
+               then chromR (trans 1 p1) p2
+               else chromR (trans (-1) p1) p2
+```
