@@ -195,6 +195,30 @@ genScale mode = case mode of
     MAeolian -> [2, 1, 2, 2, 1, 2]
     MLocrian -> [1, 2, 2, 1, 2, 2]
 
+{-
+Exercise 3.14 Write the melody of “Frère Jacques” (or, “Are You Sleeping”)
+in Euterpea. Try to make it as succinct as possible. Then, using
+functions already defined, generate a traditional four-part round,
+i.e. four identical voices, each delayed successively by two measures.
+Use a different instrument to realize each voice.
+-}
+-- a helper function to double a line
+double :: Music Pitch -> Music Pitch
+double m = m :+: m
+-- actual line
+frereJacques :: Music Pitch
+frereJacques = double (line [c 4 qn, d 4 qn, e 4 qn, c 4 qn])
+                 :+: double (line [e 4 qn, f 4 qn, g 4 qn, rest qn])
+                 :+: double (line [g 4 den, a 4 sn, g 4 en, f 4 en, e 4 qn, c 4 qn])
+                 :+: double (line [c 4 qn, g 3 qn, c 4 qn, rest qn])
+frereJacquesVoice2 = instrument Vibraphone (rest bn :+: frereJacques)
+frereJacquesVoice3 = instrument Flute (rest bn :+: frereJacquesVoice2)
+frereJacquesVoice4 = instrument OrchestralHarp (rest bn :+: frereJacquesVoice3)
+frereJacquesChoir = frereJacques
+                    :=: frereJacquesVoice2
+                    :=: frereJacquesVoice3
+                    :=: frereJacquesVoice4
+
 main = do
     print "Playing plain melody ..."
     play melody
@@ -228,3 +252,5 @@ main = do
     play (mkScale (C, 4) [2,2,1,2,2,2])
     print "Playing D dorian by mkScale and genScale ..."
     play (mkScale (C, 4) (genScale MDorian))
+    print "Playing Frère Jacques choir ..."
+    play frereJacquesChoir
