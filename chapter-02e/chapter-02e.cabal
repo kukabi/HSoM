@@ -4,16 +4,16 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8a71c60ac6fcee7b6c1b9b37aae3efb5a2e0753b3b7ac8c9d003ac6033426832
+-- hash: 43f7721abf37a72412f4f1a798424275b6f4096673f91284192a8912cfde0e54
 
 name:           chapter-02e
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/chapter-02e#readme>
-homepage:       https://github.com/githubuser/chapter-02e#readme
-bug-reports:    https://github.com/githubuser/chapter-02e/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2020 Author name here
+homepage:       https://github.com/kukabi/HSoM#readme
+bug-reports:    https://github.com/kukabi/HSoM/issues
+author:         Kutsal Kaan Bilgin
+maintainer:     kutsal@helikon.media
+copyright:      2020 Kutsal Kaan Bilgin
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -23,7 +23,7 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/chapter-02e
+  location: https://github.com/kukabi/HSoM
 
 library
   exposed-modules:

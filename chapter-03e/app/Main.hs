@@ -120,14 +120,32 @@ fuse [] (f:fs) = error "Unequal lengths -- note array is longer."
 fuse (d:ds) [] = error "Unequal lengths -- duration array is longer."
 zippedMelody = line (fuse [qn, hn, sn] [c 4, d 4, e 4])
 
+{-
+Exercise 3.10 Define a function maxAbsPitch that determines the maximum absolute
+pitch of a list of absolute pitches. Define minAbsPitch analogously.
+Both functions should return an error if applied to the empty list.
+-}
+
+-- non-recursive
 maxAbsPitch :: [AbsPitch] -> AbsPitch
 maxAbsPitch = foldr1 max
 
+-- recursive
 maxAbsPitchR :: [AbsPitch] -> AbsPitch
 maxAbsPitchR [] = error "Empty array for maxAbsPitchR!"
 maxAbsPitchR [ap] = ap
 maxAbsPitchR (ap:aps) = if ap > maxAbsPitchR aps then ap else maxAbsPitchR aps
 
+{-
+Exercise 3.11 Define a function chrom :: Pitch -> Pitch -> Music Pitch such that
+chrom p1 p2 is a chromatic scale of quarter-notes whose first pitch
+is p1 and last pitch is p2. If p1 > p2, the scale should be descending,
+otherwise it should be ascending. If p1 == p2, then the scale should
+contain just one note. (A chromatic scale is one whose successive
+pitches are separated by one absolute pitch (i.e. one semitone)).
+-}
+
+-- recursive
 chromR :: Pitch -> Pitch -> Music Pitch
 chromR p1 p2 = if absPitch p1 == absPitch p2
                then note qn p1
@@ -135,6 +153,47 @@ chromR p1 p2 = if absPitch p1 == absPitch p2
                if absPitch p1 < absPitch p2
                then chromR (trans 1 p1) p2
                else chromR (trans (-1) p1) p2
+
+{-
+Exercise 3.12 Abstractly, a scale can be described by the intervals
+between successive notes. For example, the 7-note major scale can be
+defined as the sequence of 6 intervals [ 2, 2, 1, 2, 2, 2 ], and the
+12-note chromatic scale by the 11 intervals [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].
+Define a function mkScale :: Pitch -> [Int] -> Music Pitch such that
+mkScale p ints is the scale beginning at pitch p and having the intervallic
+structure ints.
+-}
+mkScale :: Pitch -> [Int] -> Music Pitch
+mkScale p [] = note qn p
+mkScale p (i:is) = note qn p :+: mkScale (trans i p) is
+
+{-
+Exercise 3.13 Define an enumerated data type that captures each of the
+standard major scale modes: Ionian, Dorian, Phrygian, Lydian, Mixolydian,
+Aeolian, and Locrian. Then define a function genScale that, given one of
+these contructors, generates a scale in the intervalic form described in
+Exercise 3.12.
+-}
+-- note: the type Mode and enumerations are defined in Euterpea, so I prefix
+-- all with M
+data MajorMode =
+    MIonian
+    | MDorian
+    | MPhrygian
+    | MLydian
+    | MMixolydian
+    | MAeolian
+    | MLocrian
+
+genScale :: MajorMode -> [Int]
+genScale mode = case mode of
+    MIonian -> [2, 2, 1, 2, 2, 2]
+    MDorian -> [2, 1, 2, 2, 2, 1]
+    MPhrygian -> [1, 2, 2, 2, 1, 2]
+    MLydian -> [2, 2, 2, 1, 2, 2]
+    MMixolydian -> [2, 2, 1, 2, 2, 1]
+    MAeolian -> [2, 1, 2, 2, 1, 2]
+    MLocrian -> [1, 2, 2, 1, 2, 2]
 
 main = do
     print "Playing plain melody ..."
@@ -165,3 +224,7 @@ main = do
     print (maxAbsPitch [27, 3, 211, 1, 33, 122])
     print "[Recursive] Playing a chromatic line of quarter notes from C4 down to G3 ..."
     play (chromR (C, 4) (G, 3))
+    print "Playing C major by mkScale ..."
+    play (mkScale (C, 4) [2,2,1,2,2,2])
+    print "Playing D dorian by mkScale and genScale ..."
+    play (mkScale (C, 4) (genScale MDorian))

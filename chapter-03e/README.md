@@ -160,18 +160,21 @@ fuse (d:ds) [] = error "Unequal lengths -- duration array is longer."
 **Exercise 3.10** Define a function _maxAbsPitch_ that determines the maximum absolute pitch of a list of absolute pitches. Define _minAbsPitch_ analogously. Both functions should return an error if applied to the empty list.
 
 ```haskell
+-- non-recursive
 maxAbsPitch :: [AbsPitch] -> AbsPitch
 maxAbsPitch = foldr1 max
 
+-- recursive
 maxAbsPitchR :: [AbsPitch] -> AbsPitch
 maxAbsPitchR [] = error "Empty array for maxAbsPitchR!"
 maxAbsPitchR [ap] = ap
 maxAbsPitchR (ap:aps) = if ap > maxAbsPitchR aps then ap else maxAbsPitchR aps
 ```
 
-**Exercise 3.11** Define a function _chrom :: Pitch → Pitch → Music Pitch_ such that _chrom p1 p2_ is a chromatic scale of quarter-notes whose first pitch is _p1_ and last pitch is _p2_. If _p1_ > _p2_, the scale should be descending, otherwise it should be ascending. If _p1_ == _p2_, then the scale should contain just one note. (A chromatic scale is one whose successive pitches are separated by one absolute pitch (i.e. one semitone)).
+**Exercise 3.11** Define a function _chrom :: Pitch -> Pitch -> Music Pitch_ such that _chrom p1 p2_ is a chromatic scale of quarter-notes whose first pitch is _p1_ and last pitch is _p2_. If _p1_ > _p2_, the scale should be descending, otherwise it should be ascending. If _p1_ == _p2_, then the scale should contain just one note. (A chromatic scale is one whose successive pitches are separated by one absolute pitch (i.e. one semitone)).
 
 ```haskell
+-- recursive
 chromR :: Pitch -> Pitch -> Music Pitch
 chromR p1 p2 = if absPitch p1 == absPitch p2
                then note qn p1
@@ -179,4 +182,37 @@ chromR p1 p2 = if absPitch p1 == absPitch p2
                if absPitch p1 < absPitch p2
                then chromR (trans 1 p1) p2
                else chromR (trans (-1) p1) p2
+```
+
+**Exercise 3.12** Abstractly, a scale can be described by the intervals between successive notes. For example, the 7-note major scale can be defined as the sequence of 6 intervals [ 2, 2, 1, 2, 2, 2 ], and the 12-note chromatic scale by the 11 intervals [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]. Define a function _mkScale :: Pitch -> [Int] -> Music Pitch_ such that _mkScale p ints_ is the scale beginning at pitch _p_ and having the intervallic structure _ints_.
+
+```haskell
+mkScale :: Pitch -> [Int] -> Music Pitch
+mkScale p [] = note qn p
+mkScale p (i:is) = note qn p :+: mkScale (trans i p) is
+```
+
+**Exercise 3.13** Define an enumerated data type that captures each of the standard major scale modes: Ionian, Dorian, Phrygian, Lydian, Mixolydian, Aeolian, and Locrian. Then define a function _genScale_ that, given one of these contructors, generates a scale in the intervalic form described in Exercise 3.12.
+
+```haskell
+-- note: the type Mode and enumerations are defined in Euterpea, so I prefix
+-- all with M
+data MajorMode =
+    MIonian
+    | MDorian
+    | MPhrygian
+    | MLydian
+    | MMixolydian
+    | MAeolian
+    | MLocrian
+
+genScale :: MajorMode -> [Int]
+genScale mode = case mode of
+    MIonian -> [2, 2, 1, 2, 2, 2]
+    MDorian -> [2, 1, 2, 2, 2, 1]
+    MPhrygian -> [1, 2, 2, 2, 1, 2]
+    MLydian -> [2, 2, 2, 1, 2, 2]
+    MMixolydian -> [2, 2, 1, 2, 2, 1]
+    MAeolian -> [2, 1, 2, 2, 1, 2]
+    MLocrian -> [1, 2, 2, 1, 2, 2]
 ```

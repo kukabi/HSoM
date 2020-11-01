@@ -71,7 +71,7 @@ t251 = dMinor :+: gMajor :+: cMajor
     ms o d = note d (MS, o)
     ```
 
-4. In order to play a value of type Music BluesPitch using MIDI, it will have to be converted into a Music Pitch value. Define a function fromBlues :: Music BluesPitch → Music Pitch to do this, using the “approximate” translation described at the beginning of this exercise.
+4. In order to play a value of type Music BluesPitch using MIDI, it will have to be converted into a Music Pitch value. Define a function fromBlues :: Music BluesPitch -> Music Pitch to do this, using the “approximate” translation described at the beginning of this exercise.
 
     ```haskell
     fromBlues :: Music BluesPitch -> Music Pitch

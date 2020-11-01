@@ -37,7 +37,7 @@ akin to Pitch. Define auxiliary functions ro, mt, fo, fi and ms, akin to
 those in Figure 2.2, that make it easy to construct notes of type Music BluesPitch.
 In order to play a value of type Music BluesPitch using MIDI, it will have to be
 converted into a Music Pitch value. Define a function
-fromBlues :: Music BluesPitch → Music Pitch to do this,
+fromBlues :: Music BluesPitch -> Music Pitch to do this,
 using the “approximate” translation described at the beginning of this exercise.
 -}
 data BluesPitchClass = Ro | MT | Fo | Fi | MS
