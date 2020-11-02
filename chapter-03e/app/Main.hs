@@ -219,6 +219,22 @@ frereJacquesChoir = frereJacques
                     :=: frereJacquesVoice3
                     :=: frereJacquesVoice4
 
+{-
+Exercise 3.15 Freddie the Frog wants to communicate privately with his
+girlfriend Francine by encrypting messages sent to her. Frog brains are
+not that large, so they agree on this simple strategy: each character
+in the text shall be converted to the character “one greater” than it,
+based on the representation described below (with wrap-around from 255 to 0).
+Define functions encrypt and decrypt that will allow Freddie and Francine
+to communicate using this strategy.
+-}
+encrypt :: String -> String
+encrypt "" = ""
+encrypt (c:cs) = toEnum (fromEnum c + 1) : encrypt cs
+decrypt :: String -> String
+decrypt "" = ""
+decrypt (c:cs) = toEnum (fromEnum c - 1) : decrypt cs
+
 main = do
     print "Playing plain melody ..."
     play melody
@@ -252,5 +268,11 @@ main = do
     play (mkScale (C, 4) [2,2,1,2,2,2])
     print "Playing D dorian by mkScale and genScale ..."
     play (mkScale (C, 4) (genScale MDorian))
-    print "Playing Frère Jacques choir ..."
+    print "Playing Frere Jacques choir ..."
     play frereJacquesChoir
+    let message = "Hello, Francine!"
+    let encrypted = encrypt message
+    let decrypted = decrypt encrypted
+    print ("Message is: " ++ message)
+    print ("Encrypted message: " ++ encrypted)
+    print ("Decrypted message: " ++ decrypted)

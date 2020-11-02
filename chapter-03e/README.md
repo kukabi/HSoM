@@ -237,3 +237,14 @@ frereJacquesChoir = frereJacques
                     :=: frereJacquesVoice3
                     :=: frereJacquesVoice4
 ```
+
+**Exercise 3.15** Freddie the Frog wants to communicate privately with his girlfriend Francine by _encrypting_ messages sent to her. Frog brains are not that large, so they agree on this simple strategy: each character in the text shall be converted to the character “one greater” than it, based on the representation described below (with wrap-around from 255 to 0). Define functions _encrypt_ and _decrypt_ that will allow Freddie and Francine to communicate using this strategy.
+
+```haskell
+encrypt :: String -> String
+encrypt "" = ""
+encrypt (c:cs) = toEnum (fromEnum c + 1) : encrypt cs
+decrypt :: String -> String
+decrypt "" = ""
+decrypt (c:cs) = toEnum (fromEnum c - 1) : decrypt cs
+```
