@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 6f7fae5927c95e68923d2000fe586171cf612012ab2e6224f0d6907ace8f342f
+-- hash: ff8cec2b95c9146de33d65455abf4724edbf7b9aa5437248428317e5b704463f
 
 name:           chapter-04e
 version:        0.1.0.0
@@ -42,6 +42,7 @@ executable chapter-04e-exe
   other-modules:
       ChickCorea
       JSBach
+      PrefixExamples
       Util
       Paths_chapter_04e
   hs-source-dirs:
