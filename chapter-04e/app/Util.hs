@@ -34,5 +34,5 @@ prefixes (x:xs) = let f pf = x : pf
 prefix :: [Music a] -> Music a
 prefix mel = let m1 = line (concat (prefixes mel))
                  m2 = transpose 12 (line (concat (prefixes (reverse mel))))
-                 m = m1 :=: m2
+                 m = instrument Flute m1 :=: instrument VoiceOohs m2
              in m :+: transpose 5 m :+: m

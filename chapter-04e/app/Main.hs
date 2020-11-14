@@ -13,3 +13,5 @@ main = do
     play JSBach.gMajorMinuet
     print "Playing a prefixed twelve tone series (Exercise 4.2) ..."
     play twelveTonePrefix
+    print "Playing a minor melody with a different version of the prefix function (Exercise 4.3) ..."
+    play minorPrefixVersion

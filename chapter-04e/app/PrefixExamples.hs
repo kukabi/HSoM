@@ -29,3 +29,14 @@ twelveTone = [
              ]
 twelveTonePrefix :: Music Pitch
 twelveTonePrefix = tempo 1.2 (instrument AcousticGrandPiano (line (concat (prefixes twelveTone))))
+
+minorMelody = [a 4 qn, c 5 qn, b 2 qn, e 5 qn, rest qn, g 4 qn, f 4 qn, rest qn, e 4 qn, f 2 qn, g 4 qn, a 4 hn]
+
+-- a different version of prefix
+prefixVersion :: [Music a] -> Music a
+prefixVersion mel = let m1 = line (concat (prefixes mel))
+                        m2 = transpose 7 (line (concat (prefixes mel)))
+                        m3 = transpose 12 (line (concat (prefixes mel)))
+                        m = m1 :=: m2 :=: m3
+                    in tempo 4 m :+: tempo 4 (transpose (-5) m) :+: tempo 4 m
+minorPrefixVersion = prefixVersion minorMelody
