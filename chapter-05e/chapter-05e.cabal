@@ -1,0 +1,65 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 90bbaf3292d289e41db5f5aadaae673b211473bc6e8458bfd26e1c50bfc387ef
+
+name:           chapter-05e
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/chapter-05e#readme>
+homepage:       https://github.com/kukabi/HSoM#readme
+bug-reports:    https://github.com/kukabi/HSoM/issues
+author:         Kutsal Kaan Bilgin
+maintainer:     kutsal@helikon.media
+copyright:      2020 Kutsal Kaan Bilgin
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/kukabi/HSoM
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_chapter_05e
+  hs-source-dirs:
+      src
+  build-depends:
+      Euterpea
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
+executable chapter-05e-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_chapter_05e
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      Euterpea
+    , base >=4.7 && <5
+    , chapter-05e
+  default-language: Haskell2010
+
+test-suite chapter-05e-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_chapter_05e
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      Euterpea
+    , base >=4.7 && <5
+    , chapter-05e
+  default-language: Haskell2010
