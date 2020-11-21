@@ -17,6 +17,14 @@ repeatN :: Int -> Music a -> Music a
 repeatN 0 _ = rest 0
 repeatN n m = power (:+: m) (n - 1) m
 
+-- Exercise 5.3
+fix :: (a -> a) -> a
+fix f = f (fix f)
+remainder :: Integer -> Integer -> Integer
+remainder a b = if a < b then a else remainder (a - b) b
+remainder' :: Integer -> Integer -> Integer
+remainder' = fix (\f a b -> if a < b then a else f (a - b) b)
+
 main = do
     print "twice (+1) 2 is:"
     print $ twice (+1) 2
@@ -28,3 +36,5 @@ main = do
     print $ power (+2) 5 1
     print "Repeating [f 4 sn, g 4 sn, c 4 sn] 7 times using a variation of the power function:"
     play $ repeatN 7 (line [f 4 sn, g 4 sn, c 4 sn])
+    print "(remainder' 29 13) is:"
+    print $ remainder' 29 13

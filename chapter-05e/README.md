@@ -45,3 +45,29 @@ repeatN :: Int -> Music a -> Music a
 repeatN 0 _ = rest 0
 repeatN n m = power (:+: m) (n - 1) m
 ```
+
+**Exercise 5.3** Suppose we define a function _fix_ as:
+
+```haskell
+fix f = f (fix f)
+```
+
+What is the principal type of _fix_?
+
+-   _fix_ finds the fixed point of a function, where _f a = a_. Its type is _(a -> a) -> a_
+
+Support further that we have a recursive function:
+
+```haskell
+remainder :: Integer -> Integer -> Integer
+remainder a b = if a < b then a
+                else remainder (a - b) b
+```
+
+Rewrite this function using _fix_ so that there is no recursive call to _remainder_. Do you think this process can be applied to _any_ recursive function?
+
+```haskell
+remainder' = fix (\f a b -> if a < b then a else f (a - b) b)
+```
+
+_Note: Something I don't understand here is that, there actually is recursion in this definition._
