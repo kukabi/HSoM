@@ -71,7 +71,7 @@ remainder' = fix (\f a b -> if a < b then a else f (a - b) b)
 ```
 
 -   _Note: Something I don't understand here is that there actually is recursion in this definition._
--   Since the fixed point represent the base condition for a recursive call, yes, I think that _fix_ can be applied to any recursive function. An example:
+-   Since the fixed point represents the base condition for a recursive call, yes, I think that _fix_ can be applied to any recursive function. An example:
 
     ```haskell
     sumNaturalNumbersUpTo :: Integer -> Integer
@@ -80,3 +80,39 @@ remainder' = fix (\f a b -> if a < b then a else f (a - b) b)
     sumNaturalNumbersUpTo' :: Integer -> Integer
     sumNaturalNumbersUpTo' = fix (\f a -> if a == 1 then a else a + f (a - 1))
     ```
+
+**Exercise 5.4** Using list comprehensions, define a function:
+
+_apPairs :: [AbsPitch] -> [AbsPitch] -> [(AbsPitch,AbsPitch)]_
+
+such that _apPairs aps1 aps2_ is a list of all combinations of the absolute pitches in _aps1_ and _aps2_. Furthermore, for each pair _(ap1, ap2)_ in the result, the absolute value of _ap1 - ap2_ must be greater than two and less than eight.
+
+```haskell
+apPairs :: [AbsPitch] -> [AbsPitch] -> [(AbsPitch,AbsPitch)]
+apPairs aps1 aps2 = [
+        (ap1, ap2) |
+            ap1 <- aps1,
+            ap2 <- aps2,
+            abs(ap1 - ap2) > 2,
+            abs(ap1 - ap2) < 8
+    ]
+```
+
+Finally, write a function to turn the result of _apPairs_ into a _Music Pitch_ value by playing each pair of pitches in parallel and stringing them all together sequentially. Try varying the rhythm by, for example, using an eighth note when the first absolute pitch is odd and a sixteenth note when it is even, or some other criterion. Test your functions by using arithmetic sequences to generate the two lists of arguments given to _apPairs_.
+
+```haskell
+musicalAPPairs :: [(AbsPitch,AbsPitch)] -> Music Pitch
+musicalAPPairs pairs = let dur ap = if (ap `mod` 3 == 0) then sn else qn
+                           pairToChord (ap1, ap2) =
+                               chord [
+                                   note (dur ap1) (pitch ap1),
+                                   note (dur ap1) (pitch ap2)
+                               ]
+                       in line (map pairToChord pairs)
+strangeWholeToneMusic = musicalAPPairs
+                            (
+                                apPairs
+                                   [absPitch (C, 3), absPitch (D, 3)..absPitch (Gs, 4)]
+                                   [absPitch (G, 3), absPitch (A, 3)..absPitch (Cs, 5)]
+                            )
+```
