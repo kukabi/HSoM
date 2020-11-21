@@ -70,4 +70,13 @@ Rewrite this function using _fix_ so that there is no recursive call to _remaind
 remainder' = fix (\f a b -> if a < b then a else f (a - b) b)
 ```
 
-_Note: Something I don't understand here is that, there actually is recursion in this definition._
+-   _Note: Something I don't understand here is that there actually is recursion in this definition._
+-   Since the fixed point represent the base condition for a recursive call, yes, I think that _fix_ can be applied to any recursive function. An example:
+
+    ```haskell
+    sumNaturalNumbersUpTo :: Integer -> Integer
+    sumNaturalNumbersUpTo 1 = 1
+    sumNaturalNumbersUpTo n = n + sumNaturalNumbersUpTo (n - 1)
+    sumNaturalNumbersUpTo' :: Integer -> Integer
+    sumNaturalNumbersUpTo' = fix (\f a -> if a == 1 then a else a + f (a - 1))
+    ```

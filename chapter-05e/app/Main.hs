@@ -25,6 +25,12 @@ remainder a b = if a < b then a else remainder (a - b) b
 remainder' :: Integer -> Integer -> Integer
 remainder' = fix (\f a b -> if a < b then a else f (a - b) b)
 
+sumNaturalNumbersUpTo :: Integer -> Integer
+sumNaturalNumbersUpTo 1 = 1
+sumNaturalNumbersUpTo n = n + sumNaturalNumbersUpTo (n - 1)
+sumNaturalNumbersUpTo' :: Integer -> Integer
+sumNaturalNumbersUpTo' = fix (\f a -> if a == 1 then a else a + f (a - 1))
+
 main = do
     print "twice (+1) 2 is:"
     print $ twice (+1) 2
@@ -35,6 +41,8 @@ main = do
     print "power (+2) 5 1 is:"
     print $ power (+2) 5 1
     print "Repeating [f 4 sn, g 4 sn, c 4 sn] 7 times using a variation of the power function:"
-    play $ repeatN 7 (line [f 4 sn, g 4 sn, c 4 sn])
+    -- play $ repeatN 7 (line [f 4 sn, g 4 sn, c 4 sn])
     print "(remainder' 29 13) is:"
     print $ remainder' 29 13
+    print "Sum of natural numbers up to 15 is:"
+    print $ sumNaturalNumbersUpTo' 15
