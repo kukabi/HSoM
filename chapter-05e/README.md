@@ -1,6 +1,6 @@
 ### Chapter 05: Syntactic Magic
 
-Solution, application and examples are in [Main.hs](./app/Main.hs).
+Some of the solutions are also in [Main.hs](./app/Main.hs).
 
 **Exercise 5.1** Define a function _twice_ that, given a function _f_, returns a function that applies _f_ twice to its argument. For example:
 
@@ -116,3 +116,45 @@ strangeWholeToneMusic = musicalAPPairs
                                    [absPitch (G, 3), absPitch (A, 3)..absPitch (Cs, 5)]
                             )
 ```
+
+**Exercise 5.5** The last definition of _hList_ still has an argument _d_ on the left-hand side, and one occurence of _d_ on the right-hand side. Is there some way to eliminate it using currying simplification? (Hint: the answer is yes, but the solution is a bit perverse, and is not recommended as a way to write your code!)
+
+```haskell
+hList :: Dur -> [Pitch] -> Music Pitch
+hList = (line .) . map . hNote
+```
+
+**Exercise 5.6** Use _line_, _map_ and ($) to give a concise definition of _addDur_.
+
+```haskell
+addDur :: Dur -> [Pitch] -> Music Pitch
+addDur d ns = line $ map (\n -> n d) ns
+```
+
+**Exercise 5.7** Rewrite `map (\x -> (x + 1)/2)` xs using a composition of sections.
+
+```haskell
+map ((/2) . (+1)) xs
+```
+
+**Exercise 5.7** Consider the expression `map f (map g xs)`. Rewrite this using function composition and a single call to map.
+
+```haskell
+map (f . g) xs
+```
+
+Then rewrite the earlier example `map (\x -> (x + 1)/2) xs` as a “map of a map” (i.e. using two maps).
+
+```haskell
+map (/2) (map (+1) xs)
+```
+
+**Exercise 5.9** Go back to any exercises prior to this chapter, and simplify your solutions using ideas learned here.
+
+_WiP_
+
+**Exercise 5.10** Using higher-order functions introduced in this chapter, fill in the two missing functions, f1 and f2, in the evaluation below so that it is valid:
+
+`f1 (f2 (*) [1,2,3,4]) 5 ⇒ [5,10,15,20]`
+
+_WiP_
