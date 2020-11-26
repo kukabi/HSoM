@@ -55,19 +55,8 @@ strangeWholeToneMusic = musicalAPPairs
                                    [absPitch (C, 3), absPitch (D, 3)..absPitch (Gs, 4)]
                                    [absPitch (G, 3), absPitch (A, 3)..absPitch (Cs, 5)]
                             )
-
--- Exercise 5.5
-hNote :: Dur -> Pitch -> Music Pitch
-hNote d p = note d p :=: note d (trans (-3) p)
-
-hList :: Dur -> [Pitch] -> Music Pitch
-hList = (line .) . map . hNote
-
-hd = hList qn [(C, 4), (D, 4), (E, 4)]
-
+                            
 main = do
-    play hd
-    {-
     print "twice (+1) 2 is:"
     print $ twice (+1) 2
     print "twice twice (+1) 2 is:"
@@ -85,4 +74,3 @@ main = do
     print $ apPairs [1, 2, 3] [15, 16, 9, 2]
     print "Playing music from pairs ..."
     play strangeWholeToneMusic
-    -}

@@ -155,6 +155,10 @@ _WiP_
 
 **Exercise 5.10** Using higher-order functions introduced in this chapter, fill in the two missing functions, f1 and f2, in the evaluation below so that it is valid:
 
-`f1 (f2 (*) [1,2,3,4]) 5 ⇒ [5,10,15,20]`
+_f1 (f2 (\*) [1,2,3,4]) 5 => [5,10,15,20]_
 
-_WiP_
+Solution:
+
+```haskell
+(\fs a -> map ($ a) fs) (map (*) [1,2,3,4]) 5
+```
