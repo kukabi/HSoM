@@ -1,0 +1,49 @@
+name: chapter-06e
+version: 0.1.0.0
+github: "kukabi/HSoM"
+license: BSD3
+author: "Kutsal Kaan Bilgin"
+maintainer: "kutsal@helikon.media"
+copyright: "2020 Kutsal Kaan Bilgin"
+
+extra-source-files:
+    - README.md
+    - ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/githubuser/chapter-06e#readme>
+
+dependencies:
+    - base >= 4.7 && < 5
+    - Euterpea
+
+library:
+    source-dirs: src
+
+executables:
+    chapter-06e-exe:
+        main: Main.hs
+        source-dirs: app
+        ghc-options:
+            - -threaded
+            - -rtsopts
+            - -with-rtsopts=-N
+        dependencies:
+            - chapter-06e
+
+tests:
+    chapter-06e-test:
+        main: Spec.hs
+        source-dirs: test
+        ghc-options:
+            - -threaded
+            - -rtsopts
+            - -with-rtsopts=-N
+        dependencies:
+            - chapter-06e
